@@ -1,0 +1,47 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>Document</title>
+</head>
+<body>
+    <h1>Doctors info</h1>
+    <table>
+        <thead>
+            <th>Id</th>
+            <th>Name</th>
+            <th>Salary</th>
+            <th>Age</th>
+            <th>Specification</th>
+            <th>Gender</th>
+        </thead>
+       <tbody id="tablebody"></tbody>
+    </table>
+    <script>
+        
+        fetch('https://doc-back.onrender.com/doctors')
+        .then(response => response.json())
+        .then(data=>{
+            displaydataInTable(data)
+        });
+        function  displaydataInTable(data){
+
+            
+            data.forEach(doctor => {
+                let tbody=document.getElementById("tablebody");
+                let row = tbody.insertRow();
+                row.insertCell(0).textContent=doctor.id;
+                row.insertCell(1).textContent=doctor.name;
+                row.insertCell(2).textContent=doctor.salary;
+                row.insertCell(3).textContent=doctor.age;
+                row.insertCell(4).textContent=doctor.specialization;
+                row.insertCell(5).textContent=doctor.gender;
+
+
+            
+            });
+        }
+    </script>
+</body>
+</html>
