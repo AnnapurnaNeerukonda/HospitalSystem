@@ -43,6 +43,31 @@
         </div>
         <button type="submit" class="btn btn-primary" onclick="send()">Submit</button>
       </form>
-      
+      <script > 
+        fetch('https://doc-back.onrender.com/doctors')
+        .then(response => response.json())
+        .then(data=>{
+          let drop =  document.getElementById("drop")
+          console.log(data);
+                  data.forEach(doctor => {
+                   let li= document.createElement("li");
+                   li.innerHTML=`<a class="dropdown-item" href="#">${doctor.name}</a>`;
+                    li.addEventListener("click", function() {
+                        document.getElementById("dropdownBtn").innerText = doctor.name;
+                    });
+                   drop.appendChild(li);
+                  });
+        });
+        function send(){
+            let name = document.getElementById("name").value;
+            let  age= document.getElementById("age").value;
+            let  gender= document.getElementById("gender").value;
+            let disease=documemt.getElementById("disease").value;
+            let weight =document.getElementById("weight").value;
+            let doctor = document.getElementById("dropdownBtn").innerText;
+            let newPatient={ name: name , age:age , gender:gender , disease : disease ,weight :weight , doctor:doctor }
+            
+        }
+        </script>
 </body>
 </html>
