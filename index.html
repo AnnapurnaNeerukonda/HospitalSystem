@@ -38,5 +38,34 @@
         </thead>
        <tbody id="tablebody"></tbody>
     </table>
+    <script>
+        
+        fetch('https://doc-back.onrender.com/patients')
+        .then(response => response.json())
+        .then(data=>{
+            displaydataInTable(data)
+        });
+        function  displaydataInTable(data){
+            data.forEach(patient => {
+                let tbody=document.getElementById("tablebody");
+                let row = tbody.insertRow();
+                row.insertCell(0).textContent=patient.id;
+                row.insertCell(1).textContent=patient.name;
+                row.insertCell(2).textContent=patient.weight;
+                row.insertCell(3).textContent=patient.age;
+                row.insertCell(4).textContent=patient.disease;
+                row.insertCell(5).textContent=patient.gender;
+                row.insertCell(6).textContent=patient.doctor;
+                row.insertCell(7).innerHTML=` <button onclick=" edit()">Edit</button>`
+                row.insertCell(8).innerHTML=`<button onclick=" delete()">Delete</button>`
+            });
+        }
+         function edit(){
+
+        }
+        function deleted(){
+
+        }
+    </script>
 </body>
 </html>
