@@ -9,20 +9,23 @@
 </head>
 <body>
     <nav class="navbar navbar-expand-lg navbar-light bg-light">
-        <a class="navbar-brand" href="index.html">Home</a>
-        <button class="navbar-toggler" type="button" data-toggle="collapse" data-target="#navbarSupportedContent" aria-controls="navbarSupportedContent" aria-expanded="false" aria-label="Toggle navigation">
+        <a class="navbar-brand" href="#">Hospital</a>
+        <button class="navbar-toggler" type="button" data-toggle="collapse" data-target="#navbarTogglerDemo02" aria-controls="navbarTogglerDemo02" aria-expanded="false" aria-label="Toggle navigation">
           <span class="navbar-toggler-icon"></span>
         </button>
       
-        <div class="collapse navbar-collapse" id="navbarSupportedContent">
-          <ul class="navbar-nav ms-auto">
+        <div class="collapse navbar-collapse" id="navbarTogglerDemo02">
+          <ul class="navbar-nav mr-auto mt-2 mt-lg-0">
             <li class="nav-item active">
-              <a class="nav-link" href="doc.html">Doctor</a>
+              <a class="nav-link" href="index.html">Home </a>
             </li>
             <li class="nav-item">
-              <a class="nav-link" href="pat.html">Patient</a>
+              <a class="nav-link" href="doctor.html">Doctor</a>
             </li>
-          </form>
+            <li class="nav-item">
+              <a class="nav-link " href="patient.html">Patient</a>
+            </li>
+          </ul>
         </div>
       </nav>
       <h1>patients info</h1>
@@ -44,6 +47,7 @@
         .then(response => response.json())
         .then(data=>{
             displaydataInTable(data)
+            console.log(data);
         });
         function  displaydataInTable(data){
             data.forEach(patient => {
