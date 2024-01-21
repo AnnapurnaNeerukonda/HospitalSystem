@@ -1,0 +1,132 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>Document</title>
+    <link rel="stylesheet" href="https://cdn.jsdelivr.net/npm/bootstrap@5.3.2/dist/css/bootstrap.min.css">
+   <style>
+     .form-group label{
+      padding-bottom: 5px ;
+    } 
+    .form-group input{
+      width: 70%;
+    }
+     .form-group ,.dropdown-menu ,.btn{
+      margin-left: 250px !important;
+    } 
+   </style>
+ </head>
+<body>
+  <nav class="navbar navbar-expand-lg  navbar-light bg-success">
+    <div class="container-fluid">
+      <a class="navbar-brand text-light" href="index.html">Hospital Management</a>
+      <button class="navbar-toggler" type="button" data-bs-toggle="collapse" data-bs-target="#navbarSupportedContent"
+        aria-controls="navbarSupportedContent" aria-expanded="false" aria-label="Toggle navigation">
+        <span class="navbar-toggler-icon"></span>
+      </button>
+      <div class="collapse navbar-collapse" id="navbarSupportedContent">
+        <ul class="navbar-nav me-auto mb-2 mb-lg-0">
+          <li class="nav-item active">
+            <a class="nav-link text-light" href="index.html">Home </a>
+          </li>
+          <li class="nav-item">
+            <a class="nav-link text-light" href="doctor.html">Doctor</a>
+          </li>
+          <li class="nav-item">
+            <a class="nav-link text-light" href="patient.html">patient</a>
+          </li>
+        </ul>
+      </div>
+    </div>
+  </nav>
+  <h3 class="text-center mt-3">New Patient Registration</h3>
+  <div class="container p-1">
+    <div class="row ">
+    <form onsubmit=" return send(event)">
+        <div class="form-group mx-auto">
+          <label for="name">Name</label>
+          <input type="text" class="form-control" id="name" aria-describedby="emailHelp" placeholder="Enter name" required>
+          <!-- <small id="emailHelp" class="form-text text-muted">We'll never share your email with anyone else.</small> -->
+        </div><br>
+        <div class="form-group">
+          <label for="weight">Weight</label>
+          <input type="number" class="form-control" id="weight" placeholder="Password" required>
+        </div><br>
+        <div class="form-group">
+            <label for="disease">Disease</label>
+            <input type="text" class="form-control" id="disease" aria-describedby="emailHelp" placeholder="Enter name" required>
+            <!-- <small id="emailHelp" class="form-text text-muted">We'll never share your email with anyone else.</small> -->
+          </div><br>
+          <div class="form-group">
+            <label for="age">Age</label>
+            <input type="text" class="form-control" id="age" placeholder="Password" required>
+          </div><br>
+          <div class="form-group">
+            <label for="gender">gender</label>
+            <input type="text" class="form-control" id="gender" aria-describedby="emailHelp" placeholder="Enter name" required>
+            <!-- <small id="emailHelp" class="form-text text-muted">We'll never share your email with anyone else.</small> -->
+          </div><br>
+          <div class="dropdown mb-3">
+            <button class="btn btn-secondary dropdown-toggle" type="button"  id="dropdownBtn"data-bs-toggle="dropdown"
+                aria-expanded="false">
+                Doctors
+            </button>
+            <ul class="dropdown-menu" id="drop">
+               
+            </ul>
+        </div>
+        <button type="submit" class="btn btn-primary">Submit</button>
+      </form >
+      </div>
+    </div> <script>
+        fetch('https://doc-back.onrender.com/doctors')
+        .then(response => response.json())
+        .then(data=>{
+          let drop =  document.getElementById("drop")
+          console.log(data);
+                  data.forEach(doctor => {
+                   let li= document.createElement("li");
+                   li.innerHTML=`<a class="dropdown-item" href="#">${doctor.name}</a>`;
+                    li.addEventListener("click", function() {
+                        document.getElementById("dropdownBtn").innerText = doctor.name;
+                    });
+                   drop.appendChild(li);
+                  });
+        });
+        function send(event){
+            event.preventDefault();
+            let name = document.getElementById("name").value;
+            let  age= document.getElementById("age").value;
+            let  gender= document.getElementById("gender").value;
+            let disease=document.getElementById("disease").value;
+            let weight =document.getElementById("weight").value;
+            let doctor = document.getElementById("dropdownBtn").innerText;
+            let newPatient={ name: name , age:age , gender:gender , disease : disease ,weight :weight , doctor:doctor }
+            fetch('https://doc-back.onrender.com/patients',{ 
+                   method : "POST",
+                   headers:{
+                    'Content-Type': 'application/json'
+                   },
+                   body : JSON.stringify(newPatient)
+
+
+            })
+            .then(response => response.json())
+            .then(data=>{
+                  alert("patient added")
+                  console.log(data);
+            })
+            document.getElementById("name").value=""
+           document.getElementById("age").value="";
+           document.getElementById("gender").value="";
+           document.getElementById("disease").value="";
+           document.getElementById("weight").value="";
+           document.getElementById("dropdownBtn").innerText="doctors";
+          }
+      </script>
+      
+      <script src="https://cdn.jsdelivr.net/npm/bootstrap@5.3.2/dist/js/bootstrap.bundle.min.js"></script>
+
+</body>
+</html>
